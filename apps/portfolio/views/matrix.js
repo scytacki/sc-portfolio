@@ -72,20 +72,21 @@ Portfolio.Matrix = SC.View.extend(
 
 		var columnHeadings = cellContents.getEach(columnKeyProperty).uniq();		
 		columnHeadings.forEach(function (item){
-			this.push('<td>' + item.get('name') +'</td>');
+			this.push('<td>' + (item?item.get('name'):'undefined') +'</td>');
 		}, ret);
 		ret.push('</tr>');
 
         var selection = this.get('selection');
 
 		rowHeadings.forEach(function (rowKey) {
-			ret.push('<tr><td>' + rowKey.get('name') + '</td>');
+			ret.push('<tr><td>' + (rowKey?rowKey.get('name'):'undefined') + '</td>');
 			var row = contents[rowKey];
 			columnHeadings.forEach(function (columnKey){
 				var cell = row[columnKey];
 				if(cell) {
 					ret.push('<td>' + cell.map(function(item){ 
-						var name = item.getPath(cellLabelPath)
+						var name = item.getPath(cellLabelPath);
+						name = name?name:'undefined';
 						if(item === selection){
 							return '<font color="red">' + name + '</font>';
 						} else {
@@ -93,7 +94,7 @@ Portfolio.Matrix = SC.View.extend(
 						}
 					 }).join('/') + '</td>');
 				} else {
-					ret.push('<td>?</td>');
+					ret.push('<td></td>');
 				}
 			}, this);
 			ret.push('</tr>');

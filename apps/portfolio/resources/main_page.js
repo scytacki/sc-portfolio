@@ -30,7 +30,13 @@ Portfolio.mainPage = SC.Page.design({
 	        hasHorizontalScroller: NO,
 	        contentView: SC.ListView.design({
 		      contentValueKey: 'summary',
-		      contentBinding: 'Portfolio.devWeeksController.arrangedObjects',
+		      contentBinding: 'Portfolio.devWeeksController.groupedContent',
+		      contentGroupIndexes: function(){
+				return Portfolio.devWeeksController.get('groupIndices');
+		      },
+		      contentIndexIsGroup: function(idx){
+				return Portfolio.devWeeksController.get('groupIndices').contains(idx, 1);
+		      },
 		      canEditContent: YES,
 		      selectionBinding: 'Portfolio.devWeeksController.selection'
 		    }),
