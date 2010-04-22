@@ -21,6 +21,13 @@ Portfolio.DevWeek = SC.Record.extend(
 	project: SC.Record.toOne('Portfolio.Project'),
 	
 	summary: function() {
-		return this.getPath('developer.name') + ' ' + this.getPath('project.name') + ' ' + this.getPath('iteration.name');
-	}.property('project', 'developer', 'iteration')
+      return this.getPath('developer.name') + ' ' + this.getPath('project.name') + ' ' + this.getPath('iteration.name');
+	}.property('project', 'developer', 'iteration'),
+
+	developerNameBinding: '*developer.name',
+	
+	iterationNameBinding: '*iteration.name',
+	
+	projectNameBinding: '*project.name'
+
 }) ;

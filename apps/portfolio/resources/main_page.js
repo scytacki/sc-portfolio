@@ -22,33 +22,29 @@ Portfolio.mainPage = SC.Page.design({
     }),
 
     list: SC.View.design({
-	    layout: { bottom:0, left: 0, right: 300, height: 200},
-	    childViews: 'scrollView bottomView'.w(),
+	    layout: { bottom:0, left: 0, right: 300, height: 224},
+	    childViews: 'tabView bottomView'.w(),
+
+        tabView: SC.TabView.design({
+		  layout: { bottom: 24, left: 0, height: 200, right: 0},
+		  itemTitleKey: 'title',
+	      itemValueKey: 'value',
+	    
+	      nowShowing: 'tableLikeView',
+	      items: [
+	        { title: "Table Like View", value: 'tableLikeView'},
+		    { title: "Grouped View", value: 'groupedView'}
+	      ], 
 	
-		scrollView: SC.ScrollView.design({
-			layout: { bottom: 24, left: 0, height: 176, right: 0},
-	        hasHorizontalScroller: NO,
-	        contentView: SC.ListView.design({
-		      contentValueKey: 'summary',
-		      contentBinding: 'Portfolio.devWeeksController.groupedContent',
-		      contentGroupIndexes: function(){
-				return Portfolio.devWeeksController.get('groupIndices');
-		      },
-		      contentIndexIsGroup: function(idx){
-				return Portfolio.devWeeksController.get('groupIndices').contains(idx, 1);
-		      },
-		      canEditContent: YES,
-		      selectionBinding: 'Portfolio.devWeeksController.selection'
-		    }),
-		}),
-		
+	}),
+			
 		bottomView: SC.ToolbarView.design({
 			layout: { bottom: 0, left: 0, right: 0, height: 24 },
 			
 			childViews: 'addButton'.w(),
 			
 			addButton: SC.ButtonView.design({
-			   layout: { centerY: 0, height: 24, right: 12, width: 100 },
+			   layout: { centerY: 0, height: 24, right: 12, width: 110 },
 			   title:  "Add Dev Week",
 			   target: 'Portfolio.devWeeksController',
 			   action: 'addDevWeek'
@@ -97,6 +93,54 @@ Portfolio.mainPage = SC.Page.design({
 	      }),
     }), 
 
-  })
+  }),
+
+  tableLikeView: SC.ScrollView.design({
+	  layout: { bottom: 0, left: 0, top: 0, right: 0},
+      hasHorizontalScroller: NO,
+      contentView: SC.StackedView.design({
+	      childViews: [  
+	        SC.ListView.design({
+		      layout: {width: 100},
+	          contentValueKey: 'iterationName',
+	          contentBinding: 'Portfolio.devWeeksController.arrangedObjects',
+	          canEditContent: YES,
+	          selectionBinding: 'Portfolio.devWeeksController.selection'
+	        }),
+		    SC.ListView.design({
+		      layout: {left: 105, width: 100},
+	          contentValueKey: 'developerName',
+	          contentBinding: 'Portfolio.devWeeksController.arrangedObjects',
+	          canEditContent: YES,
+	          selectionBinding: 'Portfolio.devWeeksController.selection'
+	        }),
+		    SC.ListView.design({
+		      layout: {left: 210, width: 100},
+	          contentValueKey: 'projectName',
+	          contentBinding: 'Portfolio.devWeeksController.arrangedObjects',
+	          canEditContent: YES,
+	          selectionBinding: 'Portfolio.devWeeksController.selection'
+	        }),
+		  ],
+		})			  
+	}),
+	
+	groupedView: SC.ScrollView.design({
+	    layout: { bottom: 0, left: 0, top: 0, right: 0},
+	    hasHorizontalScroller: NO,
+	    contentView: SC.ListView.design({
+	          contentValueKey: 'summary',
+	          contentBinding: 'Portfolio.devWeeksController.groupedContent',
+	          contentGroupIndexes: function(){
+	                return Portfolio.devWeeksController.get('groupIndices');
+	          },
+	          contentIndexIsGroup: function(idx){
+	                return Portfolio.devWeeksController.get('groupIndices').contains(idx, 1);
+	          },
+	          canEditContent: YES,
+	          selectionBinding: 'Portfolio.devWeeksController.selection'
+	     }),
+	}),
+	
 
 });
