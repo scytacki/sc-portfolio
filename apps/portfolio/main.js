@@ -3,6 +3,7 @@
 // Copyright: ©2010 My Company, Inc.
 // ==========================================================================
 /*globals Sc-portfolio */
+sc_require('routes');
 
 // This is the function that will start your app running.  The default
 // implementation will load any fixtures you have created then instantiate
@@ -12,6 +13,8 @@
 // See comments for some pointers on what to do next.
 //
 Portfolio.main = function main() {
+  
+  Portfolio.routes.register();
 
   // Step 1: Instantiate Your Views
   // The default code here will make the mainPane for your application visible
@@ -23,10 +26,15 @@ Portfolio.main = function main() {
   // This will make your app come alive!
   var devWeeks = Portfolio.store.find(Portfolio.DevWeek);
   Portfolio.devWeeksController.set('content', devWeeks);  
-  //Portfolio.setPath('mainPage.mainPane.editor.projectSelection.objects',
-     
-  // objectsBinding: 'Portfolio.projectsController.arrangedObjects',
 
+  Portfolio.productsController.set('content', 
+    Portfolio.store.find(Portfolio.Product));
+
+  Portfolio.projectsController.set('content', 
+    Portfolio.store.find(Portfolio.Project));
+
+  //Portfolio.setPath('mainPage.mainPane.editor.projectSelection.objects',
+  // objectsBinding: 'Portfolio.projectsController.arrangedObjects',
   // Portfolio.projectsController.set('content', Portfolio.store.findAll(Portfolio.Project));
 } ;
 

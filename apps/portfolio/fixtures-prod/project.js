@@ -13,18 +13,24 @@ Portfolio.Project.FIXTURES = [
   // the example below.
 
   { guid: 1,
-    name: "RITES"},
-  
+    name: "RITES",
+    products: ['ot-framework',
+               'java-graph',
+               'rails-portal']},
+
   { guid: 2,
-	name: "SmartGraphs"},
-  
+    name: "SmartGraphs"},
+
   { guid: 3,
     name: "Geniverse"},
   
   { guid: 4,
-	name: "Evolution"},
+    name: "Evolution",
+    products: [ 'ot-framework']},
   
   { guid: 5,
-	name: "LOOPS"}
+    name: "LOOPS",
+    products: ['ot-framework',
+               'java-graph']}
 
 ];

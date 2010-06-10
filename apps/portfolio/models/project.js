@@ -15,5 +15,5 @@ Portfolio.Project = SC.Record.extend(
 /** @scope Portfolio.Project.prototype */ {
 
   name: SC.Record.attr(String),
-
+  products: SC.Record.toMany('Portfolio.Product')
 }) ;
